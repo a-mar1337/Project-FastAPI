@@ -1,28 +1,32 @@
 from fastapi import HTTPException, status
 
-UserAlreadyExistsException = HTTPException( 
-    status_code=status.HTTP_409_CONFLICT,
-    detail="Пользователь уже существует",
-)
+class BookingException(HTTPException):
+    status_code = 500
+    detail = ""
+    
+    def __init__(self):
+        super().__init__(status_code=self.status_code, detail=self.detail)
 
-IncorrectEmailOrPasswordException = HTTPException(
-    status_code=status.HTTP_401_UNAUTHORIZED,
-    detail="Неверная почта или пароль",
-)
+class UserAlreadyExistsException(BookingException):
+    status_code = status.HTTP_409_CONFLICT
+    detail = "Пользователь уже существует"
 
-TokenExpiredException = HTTPException(
-    status_code=status.HTTP_401_UNAUTHORIZED,
-    detail="Токен истек",
-)
+class IncorrectEmailOrPasswordException(BookingException):
+    status_code = status.HTTP_401_UNAUTHORIZED
+    detail = "Неверная почта или пароль"
 
-TokenAbsentException = HTTPException(
-    status_code=status.HTTP_401_UNAUTHORIZED,
-    detail="Токен отсутствует",
-)
+class TokenExpiredException(BookingException):
+    status_code = status.HTTP_401_UNAUTHORIZED
+    detail = "Токен истек"
 
-IncorrectTokenFormatException = HTTPException(
-    status_code=status.HTTP_401_UNAUTHORIZED,
-    detail="Неверный формат токена",
-)
+class TokenAbsentException(BookingException):
+    status_code = status.HTTP_401_UNAUTHORIZED
+    detail = "Токен отсутствует"
 
-UserIsNotPresentException = HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
+class IncorrectTokenFormatException(BookingException):
+    status_code = status.HTTP_401_UNAUTHORIZED
+    detail = "Неверный формат токена"
+
+class UserIsNotPresentException(BookingException):
+    status_code = status.HTTP_401_UNAUTHORIZED
+    
