@@ -14,3 +14,4 @@ class Bookings(Base):
     total_days = Column(Integer, Computed("(date_to - date_from)"))
 
 
+
