@@ -11,10 +11,6 @@ app = FastAPI()
 app.include_router(router_users)   
 app.include_router(router_bookings)
 
-class SBooking(BaseModel):
-    room_id: int
-    date_from: date
-    date_to: date
 
 class SHotel(BaseModel):
     address: str
@@ -44,8 +40,15 @@ def get_hotels(search_args: HotelSearchArgs = Depends()):
     
     return search_args
 
-@app.post("/bookings")
-def add_booking(booking: SBooking):
-    pass 
+
+# class SBooking(BaseModel):
+#     room_id: int
+#     date_from: date
+#     date_to: date
+
+
+# @app.post("/bookings")
+# def add_booking(booking: SBooking):
+#     pass 
 
 
